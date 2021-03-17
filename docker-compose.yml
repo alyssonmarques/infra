@@ -1,0 +1,56 @@
+version: '3'
+
+networks: 
+  default: 
+    external: 
+      name: rede-local
+
+services:
+
+    mysql:
+        image: mysql:5.7.33
+        container_name: mysql
+        restart: unless-stopped
+        environment: 
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        ports: 
+            - "3306:3306"
+        volumes: 
+            - ${MYSQL_DATA_VOLUME}:/var/lib/mysql
+            - ${MYSQL_SHARED_VOLUME}:/usr/local/shared
+
+    phpmyadmin:
+        depends_on: 
+            - mysql
+        image: phpmyadmin
+        container_name: phpmyadmin
+        environment:
+            #- PMA_ARBITRARY=1
+            - PMA_HOST=mysql
+            - UPLOAD_LIMIT=204800
+        restart: always
+        ports:
+            - 8080:80
+        volumes:
+            - /sessions
+
+    postgres:
+        image: postgres:9-alpine
+        #build:
+        #    context: ./
+    #        dockerfile: ./docker/postgres/Dockerfile
+        container_name: postgres
+        restart: unless-stopped
+        environment:
+            POSTGRES_PASSWORD: ${PG_PASSWORD}
+            POSTGRES_USER: ${PG_USERNAME}
+    #       POSTGRES_DB: ${DB_DATABASE}
+        ports: 
+            - "5432:5432"
+        volumes:
+            - ${PG_DATA_VOLUME}:/var/lib/postgresql/data
+            - ${PG_SHARED_VOLUME}:/usr/local/shared
+    #    networks:
+    #        - rede-siga
+
+     
