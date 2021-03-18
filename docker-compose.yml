@@ -35,22 +35,22 @@ services:
             - /sessions
 
     postgres:
-        image: postgres:9-alpine
-        #build:
-        #    context: ./
-    #        dockerfile: ./docker/postgres/Dockerfile
+        #image: kartoza/postgis:9.3
+        build:
+            context: .
+            dockerfile: postgres/docker/Dockerfile
+        image: alyssonmarques/kartoza-postgis
         container_name: postgres
         restart: unless-stopped
         environment:
-            POSTGRES_PASSWORD: ${PG_PASSWORD}
+            POSTGRES_PASS: ${PG_PASSWORD}
             POSTGRES_USER: ${PG_USERNAME}
-    #       POSTGRES_DB: ${DB_DATABASE}
+            ALLOW_IP_RANGE: 0.0.0.0/0
+            POSTGRES_MULTIPLE_EXTENSIONS: postgis,hstore,postgis_topology,postgis_raster,pgrouting
         ports: 
             - "5432:5432"
         volumes:
             - ${PG_DATA_VOLUME}:/var/lib/postgresql/data
             - ${PG_SHARED_VOLUME}:/usr/local/shared
-    #    networks:
-    #        - rede-siga
 
      

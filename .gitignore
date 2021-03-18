@@ -1,0 +1,15 @@
+mysql/data/auto.cnf
+mysql/data/ca-key.pem
+mysql/data/ca.pem
+mysql/data/client-cert.pem
+mysql/data/client-key.pem
+mysql/data/ib_buffer_pool
+mysql/data/ib_logfile0
+mysql/data/ib_logfile1
+mysql/data/ibdata1
+mysql/data/ibtmp1
+mysql/data/private_key.pem
+mysql/data/public_key.pem
+mysql/data/server-cert.pem
+mysql/data/server-key.pem
+postgres/data/.pg_hba.conf.swp
