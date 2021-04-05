@@ -30,7 +30,7 @@ services:
             - UPLOAD_LIMIT=204800
         restart: always
         ports:
-            - 8080:80
+            - 8088:80
         volumes:
             - /sessions
 
@@ -50,7 +50,9 @@ services:
         ports: 
             - "5432:5432"
         volumes:
-            - ${PG_DATA_VOLUME}:/var/lib/postgresql/data
+            - pgdata:/var/lib/postgresql/data
             - ${PG_SHARED_VOLUME}:/usr/local/shared
+volumes:
+    pgdata:
 
      
